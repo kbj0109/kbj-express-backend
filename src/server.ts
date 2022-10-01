@@ -23,6 +23,7 @@ const startServer = async (application: Express) => {
     const ipAddress = config.host;
 
     logger.info(`Server is listening on http://${ipAddress}:${config.port}`);
+    logger.info(`NodeEnv is - ${config.nodeEnv}`);
   });
 
   process.on('uncaughtException', async (err) => {
