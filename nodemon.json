@@ -1,0 +1,4 @@
+{
+  "watch": ["src/**/*.ts", ".env"],
+  "exec": "ts-node-dev --no-notify --respawn --transpile-only --inspect=0.0.0.0:9229"
+}
