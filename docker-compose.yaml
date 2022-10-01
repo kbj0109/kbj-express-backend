@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:5.0.11
+    container_name: mongo
+    command: --replSet rs0
+    tty: true
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./volume/mongodb/data/db:/data/db

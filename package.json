@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon ./src/server",
     "build": "npm run clean && tsc",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "db-up": "./create-rs.sh",
+    "db-down": "docker-compose down"
   },
   "author": "",
   "license": "ISC",
