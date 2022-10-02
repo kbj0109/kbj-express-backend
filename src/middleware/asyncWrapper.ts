@@ -1,6 +1,6 @@
-import { Response_T } from '@src/constant/transactionResponse';
 import { Request, Response, NextFunction } from 'express';
 import mongoose, { ClientSession } from 'mongoose';
+import { Response_T } from '../constant/transactionResponse';
 
 export const asyncWrapper =
   (requestHandler: (req: Request, res: Response, next: NextFunction) => Promise<void>) =>
