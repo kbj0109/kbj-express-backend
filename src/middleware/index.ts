@@ -1,7 +1,8 @@
-import express, { Express } from 'express';
+import { Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import { otherErrorHandler, productionErrorHandler } from './errorHandler';
 import logHandler from './logHandler';
 import { config } from '../config';
@@ -15,8 +16,8 @@ const isProductionEnv = !(config.serverEnv === ServerEnv.Development || config.s
 const setMiddlewareBeforeRoute = (app: Express): void => {
   app.use(cors({ credentials: true, origin: true }));
   app.use(cookieParser());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   app.use(logHandler);
   app.disable('x-powered-by');
   app.use(helmet());
