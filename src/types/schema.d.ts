@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { Genre, Theater } from '../constant';
+import { AuthType, Genre, Theater } from '../constant';
 
 type MongooseSchema<T> = {
   [k in keyof Required<Omit<T, '_id'>>]: any;
@@ -11,6 +11,15 @@ interface IUser {
   password: string;
   name: string;
   createdAt: Date;
+}
+
+export interface IAuthCode {
+  _id: string;
+  username: string;
+  code: string;
+  type: AuthType;
+  createdAt: Date;
+  expiredAt: Date;
 }
 
 interface IMovie {

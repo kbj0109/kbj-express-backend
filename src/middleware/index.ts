@@ -6,6 +6,7 @@ import { otherErrorHandler, productionErrorHandler } from './errorHandler';
 import logHandler from './logHandler';
 import { config } from '../config';
 import { ServerEnv } from '../constant';
+import { setUserIfSignIn } from './authHandler';
 
 // * 명확하게 Staging / Development 환경으로 명시되어 있지 않으면 Production 으로 간주한다
 const isProductionEnv = !(config.serverEnv === ServerEnv.Development || config.serverEnv === ServerEnv.Staging);
@@ -19,6 +20,7 @@ const setMiddlewareBeforeRoute = (app: Express): void => {
   app.use(logHandler);
   app.disable('x-powered-by');
   app.use(helmet());
+  app.use(setUserIfSignIn);
 };
 
 /** Request Handling 이후의 미들웨어 설정 */

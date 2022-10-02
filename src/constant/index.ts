@@ -4,6 +4,7 @@ export enum DB_Collection {
   Movie = 'movies',
   Schedule = 'schedules',
   Ticket = 'tickets',
+  Auth = 'auths',
 }
 
 export enum ServerEnv {
@@ -11,6 +12,10 @@ export enum ServerEnv {
   Staging = 'staging',
   Development = 'development',
   Test = 'test',
+}
+
+export enum AuthType {
+  REFRESH_TOKEN = 0, // Access 토큰 갱신용 리프레시 토큰
 }
 
 /** 영화 장르 */
@@ -24,7 +29,7 @@ export enum Genre {
 
 /** 영화관 */
 export enum Theater {
-  YongSan = 0,
-  GangNam = 1,
-  SaDang = 2,
+  YongSan = '용산',
+  GangNam = '강남',
+  SaDang = '사당',
 }
