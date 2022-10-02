@@ -10,7 +10,7 @@ export class AuthApplication {
 
     const user = await this.userService.confirmOne({ username });
 
-    const { accessToken, refreshToken } = await this.authService.createAccess(password, user.password, username);
+    const { accessToken, refreshToken } = await this.authService.createAccess(password, user.password, { username });
 
     res.json({ accessToken, refreshToken });
   };

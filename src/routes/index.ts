@@ -11,17 +11,21 @@ import { UserApplication } from '../application/user';
 import { MovieApplication } from '../application/movie';
 import { TicketApplication } from '../application/ticket';
 import { ScheduleApplication } from '../application/schedule';
+import { AuthApplication } from '../application/auth';
+import { authRouter } from './auth';
 
 const setApiRoute = (
   server: Express,
   app: {
     user: UserApplication;
+    auth: AuthApplication;
     movie: MovieApplication;
     ticket: TicketApplication;
     schedule: ScheduleApplication;
   },
 ): void => {
   server.use('/users', userRouter(app.user));
+  server.use('/auth', authRouter(app.auth));
   server.use('/movies', movieRouter(app.movie));
   server.use('/tickets', ticketRouter(app.ticket));
   server.use('/schedules', scheduleRouter(app.schedule));

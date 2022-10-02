@@ -13,7 +13,7 @@ export class UserApplication {
 
     const item = await this.userService.createOne({ username, password, name, createdAt }, { transaction });
 
-    res.json(refineData(item));
+    res.json(refineData(item, { remove: ['password'] }));
   };
 
   checkExist = async (req: Request, res: Response): Promise<void> => {

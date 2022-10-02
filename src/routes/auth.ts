@@ -14,7 +14,7 @@ export const authRouter = (authApp: AuthApplication): Router => {
     asyncWrapper(authApp.signin),
   );
 
-  router.get(
+  router.post(
     '/renew',
     validator([body('refreshToken').isString().trim().notEmpty()]),
     onlySignInUser({ allowExpiredToken: true }),
