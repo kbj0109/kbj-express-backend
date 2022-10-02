@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import { config } from '../config';
+import { ServerEnv } from '../constant';
+import { BadRequestError } from '../constant/error';
 import logger from '../util/logger';
 
 export class Database {
@@ -30,6 +33,19 @@ export class Database {
   async disconnect(): Promise<void> {
     if (this.handler) {
       await this.handler.disconnect();
+    }
+  }
+
+  /** 데이터베이스를 리셋합니다 */
+  async resetDatabase(): Promise<void> {
+    if (config.serverEnv !== ServerEnv.Test) {
+      const message = '테스트 환경에서만 Database 리셋 가능';
+      logger.error(message);
+      throw new BadRequestError({ message });
+    }
+
+    if (this.handler) {
+      await this.handler.connection.db.dropDatabase();
     }
   }
 }

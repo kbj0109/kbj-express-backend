@@ -1,0 +1,88 @@
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access Token 입력 (Bearer 단어 필요 - Bearer abcdef~)
+
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+          description: 회원 Username
+        name:
+          type: string
+          description: 이름
+        createdAt:
+          type: string
+          description: 생성일
+
+    Movie:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+          description: 영화 제목
+        description:
+          type: string
+          description: 영화 설명
+        actors:
+          type: array
+          items:
+            type: string
+          description: 출연 배우 목록
+        genres:
+          type: array
+          items:
+            type: string
+          description: 장르 목록
+        createdAt:
+          type: string
+          description: 생성일
+
+    Schedule:
+      type: object
+      properties:
+        _id:
+          type: string
+        movie:
+          $ref: '#components/schemas/Movie'
+        startAt:
+          type: string
+          description: 시작 시간 Date
+        endAt:
+          type: string
+          description: 종료 시간 Date
+        theater:
+          type: string
+          description: 영화관
+        createdAt:
+          type: string
+          description: 생성일
+
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: string
+        price:
+          type: number
+          description: 가격
+        movie:
+          $ref: '#components/schemas/Movie'
+        schedule:
+          $ref: '#components/schemas/Schedule'
+        score:
+          type: number
+          required: false
+          description: 관람 점수
+        createdAt:
+          type: string
+          description: 생성일

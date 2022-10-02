@@ -14,3 +14,5 @@ const Schema = new mongoose.Schema<IUser>(schema);
 Schema.index({ username: 1 });
 
 export const _UserModel = mongoose.model<IUser>(DB_Collection.User, Schema);
+
+export const userPropList: (keyof IUser)[] = Object.keys(schema) as (keyof IUser)[];

@@ -1,0 +1,67 @@
+paths:
+  /v1/users:
+    post:
+      tags:
+        - 회원
+      summary: 회원가입
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  description: 최소 6자
+                name:
+                  type: string
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+        409:
+          description: 중복 Username
+
+    get:
+      tags:
+        - 회원
+      security:
+        - bearerAuth: []
+      summary: 자신 정보 확인
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /v1/users/{username}:
+    get:
+      tags:
+        - 회원
+      summary: 가입 전 username 유무 확인
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isExisted:
+                    type: boolean
+                    description: 존재 여부
