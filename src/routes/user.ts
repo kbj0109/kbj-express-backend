@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body, param } from 'express-validator';
 import { UserApplication } from '../application/user';
 import { asyncTransactionWrapper, asyncWrapper } from '../middleware/asyncWrapper';
+import { onlySignInUser } from '../middleware/authHandler';
 import { validator } from '../middleware/paramValidator';
 
 const router = Router();
@@ -16,6 +17,8 @@ export const userRouter = (userApp: UserApplication): Router => {
     ]),
     asyncTransactionWrapper(userApp.createOne),
   );
+
+  router.get('/', onlySignInUser(), asyncWrapper(userApp.readMyself));
 
   router.get(
     '/:username',

@@ -17,8 +17,8 @@ export const otherErrorHandler = (err: CustomError, _req: Request, res: Response
     data,
   } = err;
 
-  if (config.nodeEnv !== ServerEnv.Test) {
-    logger.warn(err);
+  if (config.nodeEnv === ServerEnv.Development) {
+    console.log(err);
   }
 
   res.status(status).json({

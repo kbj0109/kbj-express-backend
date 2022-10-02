@@ -2,6 +2,8 @@ import app from '../src/application';
 import { API, getRequest, getSampleUserData, setupTestDB } from '.';
 import { userPropList } from '../src/database/schema/user';
 import { UserService } from '../src/service/user';
+import { createJwtToken } from '../src/util/auth';
+import { ExpiredTokenError, InvalidTokenError } from '../src/constant/error';
 
 const request = getRequest(app);
 setupTestDB();
@@ -58,6 +60,52 @@ describe(`User 테스트`, () => {
         expect(response.body).toHaveProperty('isExisted');
         expect(response.body.isExisted).toBe(true);
       });
+    });
+  });
+
+  describe('자신 정보 확인 테스트', () => {
+    const username = 'sample-myself';
+    let accessToken = 'Bearer ';
+
+    beforeAll(async () => {
+      await request
+        .post(API.UserSignup)
+        .send({ ...sample, username })
+        .then((res) => {
+          expect(res.statusCode).toBe(200);
+        });
+
+      const res = await request.post(API.AuthSignIn).send({ username, password: sample.password });
+      accessToken = accessToken + res.body.accessToken;
+    });
+
+    test('[성공] 자신 정보 확인', async () => {
+      const res = await request.get(API.UserReadMyself).set({ authorization: accessToken });
+      expect(res.statusCode).toBe(200);
+
+      userPropList.forEach((prop) => {
+        if (prop === 'password') expect(res.body).not.toHaveProperty(prop);
+        else expect(res.body).toHaveProperty(prop);
+      });
+    });
+
+    test('[실패] Access Token 없음', async () => {
+      const res = await request.get(API.UserReadMyself);
+      expect(res.statusCode).toBe(403);
+    });
+
+    test('[실패] 잘못된 Access Token', async () => {
+      const res = await request.get(API.UserReadMyself).set({ authorization: accessToken + 'a' });
+      expect(res.statusCode).toBe(401);
+      expect(res.body.type).toBe(new InvalidTokenError().type);
+    });
+
+    test('[실패] 만료된 Access Token', async () => {
+      const accessToken = createJwtToken({ username }, '-1s');
+      const res = await request.get(API.UserReadMyself).set({ authorization: `Bearer ${accessToken}` });
+
+      expect(res.statusCode).toBe(401);
+      expect(res.body.type).toBe(new ExpiredTokenError().type);
     });
   });
 });

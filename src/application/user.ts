@@ -21,4 +21,12 @@ export class UserApplication {
 
     res.json({ isExisted: !!item });
   };
+
+  readMyself = async (req: Request, res: Response): Promise<void> => {
+    const { username } = req.user!;
+
+    const item = await this.userService.confirmOne({ username });
+
+    res.json(refineData(item, { remove: ['password'] }));
+  };
 }

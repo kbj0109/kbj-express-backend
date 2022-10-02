@@ -48,6 +48,7 @@ export const getSampleUserData = (data?: Partial<IUser>): Omit<IUser, '_id' | 'c
 
 export const API = {
   UserSignup: '/users',
+  UserReadMyself: '/users',
   UserCheckExist: (username: string): string => `/users/${username}`,
   AuthSignIn: '/auth/signin',
   AuthRenew: '/auth/renew',

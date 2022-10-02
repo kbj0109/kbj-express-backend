@@ -42,7 +42,7 @@ describe(`Auth 테스트`, () => {
     test('[성공] 토큰 갱신', async () => {
       const { accessToken, refreshToken } = await request
         .post(API.AuthSignIn)
-        .send({ username: sample.password })
+        .send({ username: sample.username, password: sample.password })
         .then((res) => {
           expect(res.statusCode).toBe(200);
           return res.body;
