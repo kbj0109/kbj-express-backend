@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./dist",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "lib": ["es2020", "DOM"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -17,6 +17,6 @@
     "paths": {},
     "plugins": []
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "./tests"],
   "exclude": ["node_modules", "dist"]
 }

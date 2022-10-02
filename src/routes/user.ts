@@ -6,5 +6,7 @@ const router = Router();
 export const userRouter = (userApp: UserApplication): Router => {
   // router.post('/', userApp.createOne);
 
+  router.get('/', userApp.createOne);
+
   return router;
 };

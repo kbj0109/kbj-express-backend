@@ -1,11 +1,11 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import { DB_Collection } from '../../constant';
 import { ITicket, MongooseSchema } from '../../types/schema';
 
 const schema: MongooseSchema<ITicket> = {
   price: { type: Number },
-  movie: { type: Types.ObjectId, ref: DB_Collection.Movie },
-  schedule: { type: Types.ObjectId, ref: DB_Collection.Schedule },
+  movie: { type: mongoose.Types.ObjectId, ref: DB_Collection.Movie },
+  schedule: { type: mongoose.Types.ObjectId, ref: DB_Collection.Schedule },
   score: { type: Number },
   createdAt: { type: Date },
 };
