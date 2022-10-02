@@ -17,13 +17,13 @@ const closeServer = (server: Server) => {
 
 const startServer = async (application: Express) => {
   const dbHandler = new Database(config.mongoURL, config.mongoDatabase, config.mongoUsername, config.mongoPassword);
-  dbHandler.connect();
+  await dbHandler.connect();
 
   const server = application.listen(config.port, () => {
     const ipAddress = config.host;
 
     logger.info(`Server is listening on http://${ipAddress}:${config.port}`);
-    logger.info(`NodeEnv is - ${config.nodeEnv}`);
+    logger.info(`NODE_ENV is - ${config.nodeEnv}`);
   });
 
   process.on('uncaughtException', async (err) => {
