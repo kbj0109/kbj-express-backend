@@ -3,13 +3,14 @@ import { Service } from '.';
 import { DuplicatedError } from '../constant/error';
 import { UserModel } from '../model/user';
 import { IUser } from '../types/schema';
-import { getEncryptValue } from '../util';
+import { getEncryptValue } from '../util/auth';
 
 export class UserService {
   private readonly model = new UserModel();
   private readonly service = new Service(this.model);
 
   readOne = this.service.readOne;
+  confirmOne = this.service.confirmOne;
 
   createOne = async (
     data: Omit<IUser, '_id'>,

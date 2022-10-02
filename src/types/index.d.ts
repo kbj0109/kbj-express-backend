@@ -1,6 +1,16 @@
 export {};
 
 declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        username: string;
+        tokenCreatedAt: Date; // 해당 토큰 생성 시간
+        tokenExpiredAt: Date; // 해당 로그인 정보가 유효한 시간
+      };
+    }
+  }
+
   /** 최소 Object 내 속성값 하나는 빈값이 아니어야 한다 */
   type NotEmpty<T> = {
     [K in keyof T]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<keyof T, K>>>;

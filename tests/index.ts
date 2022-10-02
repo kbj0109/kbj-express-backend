@@ -45,3 +45,10 @@ export const getSampleUserData = (data?: Partial<IUser>): Omit<IUser, '_id' | 'c
     ...data,
   };
 };
+
+export const API = {
+  UserSignup: '/users',
+  UserCheckExist: (username: string): string => `/users/${username}`,
+  AuthSignIn: '/auth/signin',
+  AuthRenew: '/auth/renew',
+};

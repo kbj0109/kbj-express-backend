@@ -15,4 +15,8 @@ export const config = {
   mongoDatabase: process.env.MONGO_DATABASE || '',
   mongoUsername: process.env.MONGO_USERNAME || '',
   mongoPassword: process.env.MONGO_PASSWORD || '',
+
+  jwtSecret: process.env.JWT_SECRET || '',
+  accessExpired: process.env.ACCESS_TOKEN_EXPIRES_IN || '30m',
+  refreshExpired: process.env.REFRESH_TOKEN_EXPIRES_IN || '30d',
 };
