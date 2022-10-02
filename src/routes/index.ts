@@ -2,35 +2,29 @@ import { Express } from 'express';
 import { NotFoundError } from '../constant/error';
 import { config } from '../config';
 import { ServerEnv } from '../constant';
-import { MovieService } from '../service/movie';
-import { ScheduleService } from '../service/schedule';
-import { TicketService } from '../service/ticket';
-import { UserService } from '../service/user';
-import { UserApplication } from '../application/user';
-import { ScheduleApplication } from '../application/schedule';
-import { MovieApplication } from '../application/movie';
-import { TicketApplication } from '../application/ticket';
 import { userRouter } from './user';
 import { movieRouter } from './movie';
 import { ticketRouter } from './ticket';
 import { scheduleRouter } from './schedule';
 import { swaggerRouter } from './swagger';
+import { UserApplication } from '../application/user';
+import { MovieApplication } from '../application/movie';
+import { TicketApplication } from '../application/ticket';
+import { ScheduleApplication } from '../application/schedule';
 
-const setApiRoute = (app: Express): void => {
-  const userService = new UserService();
-  const movieService = new MovieService();
-  const ticketService = new TicketService();
-  const scheduleService = new ScheduleService();
-
-  const userApp = new UserApplication(userService);
-  const movieApp = new MovieApplication(movieService);
-  const ticketApp = new TicketApplication(ticketService);
-  const scheduleApp = new ScheduleApplication(scheduleService);
-
-  app.use('/users', userRouter(userApp));
-  app.use('/movies', movieRouter(movieApp));
-  app.use('/tickets', ticketRouter(ticketApp));
-  app.use('/schedules', scheduleRouter(scheduleApp));
+const setApiRoute = (
+  app: Express,
+  application: {
+    user: UserApplication;
+    movie: MovieApplication;
+    ticket: TicketApplication;
+    schedule: ScheduleApplication;
+  },
+) => {
+  app.use('/users', userRouter(application.user));
+  app.use('/movies', movieRouter(application.movie));
+  app.use('/tickets', ticketRouter(application.ticket));
+  app.use('/schedules', scheduleRouter(application.schedule));
 
   // * 운영 환경은 API 문서 제거
   if (config.serverEnv !== ServerEnv.Production) {

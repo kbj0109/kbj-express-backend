@@ -18,7 +18,7 @@ interface IMovie {
   title: string;
   description: string;
   actors: string[]; // 출연진
-  genre: Genre[]; // 영화 장르
+  genres: Genre[]; // 영화 장르
   createdAt: Date;
 }
 
