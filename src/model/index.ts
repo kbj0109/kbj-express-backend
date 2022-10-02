@@ -1,10 +1,10 @@
-import { ClientSession, Model as MongooseModel, UpdateQuery } from 'mongoose';
+import { ClientSession, Model, UpdateQuery } from 'mongoose';
 import { getFilterQuery, getSearchQuery } from '../util/query';
 
-export class Model<T> {
-  private readonly model: MongooseModel<T>;
+export class _Model<T> {
+  private readonly model: Model<T>;
 
-  constructor(value: MongooseModel<T>) {
+  constructor(value: Model<T>) {
     this.model = value;
   }
 
