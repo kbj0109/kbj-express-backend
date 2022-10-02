@@ -6,7 +6,7 @@ const schema: MongooseSchema<IMovie> = {
   title: { type: String },
   description: { type: String },
   actors: [{ type: String }],
-  genre: [{ type: String }],
+  genres: [{ type: String }],
   createdAt: { type: Date },
 };
 
