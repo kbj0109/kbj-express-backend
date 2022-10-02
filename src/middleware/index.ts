@@ -11,7 +11,7 @@ import { ServerEnv } from '../constant';
 const isProductionEnv = !(config.serverEnv === ServerEnv.Development || config.serverEnv === ServerEnv.Staging);
 
 /** Request Handling 이전의 미들웨어 설정 */
-const setMiddlewareBeforeRoute = (app: Express) => {
+const setMiddlewareBeforeRoute = (app: Express): void => {
   app.use(cors({ credentials: true, origin: true }));
   app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
@@ -22,7 +22,7 @@ const setMiddlewareBeforeRoute = (app: Express) => {
 };
 
 /** Request Handling 이후의 미들웨어 설정 */
-const setMiddlewareAfterRoute = (app: Express) => {
+const setMiddlewareAfterRoute = (app: Express): void => {
   app.use(isProductionEnv ? productionErrorHandler : otherErrorHandler);
 };
 

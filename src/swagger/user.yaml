@@ -1,5 +1,5 @@
 paths:
-  /v1/users:
+  /users:
     post:
       tags:
         - 회원
@@ -43,7 +43,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
 
-  /v1/users/{username}:
+  /users/{username}:
     get:
       tags:
         - 회원

@@ -20,7 +20,7 @@ const setApiRoute = (
     ticket: TicketApplication;
     schedule: ScheduleApplication;
   },
-) => {
+): void => {
   server.use('/users', userRouter(app.user));
   server.use('/movies', movieRouter(app.movie));
   server.use('/tickets', ticketRouter(app.ticket));
