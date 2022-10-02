@@ -13,25 +13,25 @@ import { TicketApplication } from '../application/ticket';
 import { ScheduleApplication } from '../application/schedule';
 
 const setApiRoute = (
-  app: Express,
-  application: {
+  server: Express,
+  app: {
     user: UserApplication;
     movie: MovieApplication;
     ticket: TicketApplication;
     schedule: ScheduleApplication;
   },
 ) => {
-  app.use('/users', userRouter(application.user));
-  app.use('/movies', movieRouter(application.movie));
-  app.use('/tickets', ticketRouter(application.ticket));
-  app.use('/schedules', scheduleRouter(application.schedule));
+  server.use('/users', userRouter(app.user));
+  server.use('/movies', movieRouter(app.movie));
+  server.use('/tickets', ticketRouter(app.ticket));
+  server.use('/schedules', scheduleRouter(app.schedule));
 
   // * 운영 환경은 API 문서 제거
   if (config.serverEnv !== ServerEnv.Production) {
-    app.use('/docs', swaggerRouter());
+    server.use('/docs', swaggerRouter());
   }
 
-  app.use('*', (req, _, next) => {
+  server.use('*', (req, _, next) => {
     const apiUrl = `${req.method} - ${req.protocol}://${req.hostname}${req.originalUrl}`;
     const message = `${apiUrl} 존재하지 않는 API 경로입니다`;
 

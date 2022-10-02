@@ -10,7 +10,7 @@ import { MovieApplication } from './movie';
 import { TicketApplication } from './ticket';
 import { ScheduleApplication } from './schedule';
 
-const app = express();
+const server = express();
 
 const userService = new UserService();
 const movieService = new MovieService();
@@ -23,11 +23,11 @@ const ticket = new TicketApplication(ticketService);
 const schedule = new ScheduleApplication(scheduleService);
 
 // # Request Handler 이전 미들웨어
-setMiddlewareBeforeRoute(app);
+setMiddlewareBeforeRoute(server);
 
-setApiRoute(app, { user, movie, ticket, schedule });
+setApiRoute(server, { user, movie, ticket, schedule });
 
 // # Request Handler 이후 미들웨어
-setMiddlewareAfterRoute(app);
+setMiddlewareAfterRoute(server);
 
-export default app;
+export default server;

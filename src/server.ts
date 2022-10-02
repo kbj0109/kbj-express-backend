@@ -1,4 +1,4 @@
-import app from './application';
+import server from './application';
 import { Express } from 'express';
 import { config } from './config';
 import { Database } from './database';
@@ -15,11 +15,11 @@ const closeServer = (server: Server) => {
   });
 };
 
-const startServer = async (application: Express) => {
+const startServer = async (serverApp: Express) => {
   const dbHandler = new Database(config.mongoURL, config.mongoDatabase, config.mongoUsername, config.mongoPassword);
   await dbHandler.connect();
 
-  const server = application.listen(config.port, () => {
+  const server = serverApp.listen(config.port, () => {
     const ipAddress = config.host;
 
     logger.info(`Server is listening on http://${ipAddress}:${config.port}`);
@@ -37,4 +37,4 @@ const startServer = async (application: Express) => {
   });
 };
 
-startServer(app);
+startServer(server);
