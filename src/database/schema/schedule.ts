@@ -15,4 +15,4 @@ const Schema = new mongoose.Schema<ISchedule>(schema);
 Schema.index({ startAt: 1 });
 Schema.index({ movie: 1 });
 
-export const ScheduleModel = mongoose.model<ISchedule>(DB_Collection.Schedule, Schema);
+export const _ScheduleModel = mongoose.model<ISchedule>(DB_Collection.Schedule, Schema);

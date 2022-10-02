@@ -14,4 +14,4 @@ const Schema = new mongoose.Schema<IMovie>(schema);
 
 Schema.index({ createdAt: 1 });
 
-export const MovieModel = mongoose.model<IMovie>(DB_Collection.Movie, Schema);
+export const _MovieModel = mongoose.model<IMovie>(DB_Collection.Movie, Schema);

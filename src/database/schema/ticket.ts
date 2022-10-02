@@ -12,4 +12,4 @@ const schema: MongooseSchema<ITicket> = {
 
 const Schema = new mongoose.Schema<ITicket>(schema);
 
-export const TicketModel = mongoose.model<ITicket>(DB_Collection.Ticket, Schema);
+export const _TicketModel = mongoose.model<ITicket>(DB_Collection.Ticket, Schema);
