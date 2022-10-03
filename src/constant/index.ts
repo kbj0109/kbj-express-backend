@@ -34,3 +34,4 @@ export enum Theater {
   GangNam = '강남',
   SaDang = '사당',
 }
+export const TheaterList = Object.values(Theater).filter((one) => typeof one === 'string');

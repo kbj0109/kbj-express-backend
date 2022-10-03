@@ -86,3 +86,36 @@ components:
         createdAt:
           type: string
           description: 생성일
+
+    SearchCondition:
+      type: object
+      description: 검색 조건
+      properties:
+        include:
+          type: object
+          description: 포함 검색
+          required: false
+        exact:
+          type: object
+          description: 일치 검색
+          required: false
+        exactOneOf:
+          type: array
+          description: 일치 검색 (배열 중 하나만 일치해도 검색)
+          required: false
+          items:
+            type: object
+        range:
+          type: object
+          description: 범위 검색
+          required: false
+        sort:
+          type: object
+          required: false
+          description: 정렬 asc | desc
+        skip:
+          type: number
+          required: false
+        limit:
+          type: number
+          required: false

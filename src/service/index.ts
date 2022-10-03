@@ -85,4 +85,11 @@ export class Service<T> {
   ): ReturnType<_Model<T>['count']> => {
     return this.model.countDetail(condition, option);
   };
+
+  readDetail = async (
+    condition: SearchCondition,
+    option?: { transaction?: ClientSession; skip?: number; limit?: number },
+  ): ReturnType<_Model<T>['readDetail']> => {
+    return this.model.readDetail(condition, option);
+  };
 }

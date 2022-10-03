@@ -24,7 +24,7 @@ const user = new UserApplication(userService);
 const auth = new AuthApplication(authService, userService);
 const movie = new MovieApplication(movieService);
 const ticket = new TicketApplication(ticketService);
-const schedule = new ScheduleApplication(scheduleService);
+const schedule = new ScheduleApplication(scheduleService, movieService);
 
 // # Request Handler 이전 미들웨어
 setMiddlewareBeforeRoute(server);

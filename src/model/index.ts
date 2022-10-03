@@ -78,4 +78,10 @@ export class _Model<T> {
   countDetail = async (condition: CountSearchCondition, option?: { transaction?: ClientSession }): Promise<number> => {
     return this.model.countDocuments(getSearchQuery(condition)).session(option?.transaction || null);
   };
+
+  readDetail = async (condition: SearchCondition, option?: { transaction?: ClientSession }): Promise<T | null> => {
+    const { transaction } = option || {};
+
+    return this.model.findOne(getSearchQuery(condition), null, { session: transaction });
+  };
 }

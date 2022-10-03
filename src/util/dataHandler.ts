@@ -1,14 +1,14 @@
-const refineData = (
-  document: any,
+const refineData = <T>(
+  document: T,
   config?: {
     set?: { [key: string]: any };
-    remove?: string[];
+    remove?: (keyof T)[];
     includeObjectId?: boolean;
     includeVersion?: boolean;
   },
 ): { [key: string]: any } => {
   const { set = {}, remove = [], includeObjectId = true, includeVersion = false } = config || {};
-  const object = typeof document.toObject !== 'function' ? document : document.toObject();
+  const object = typeof (<any>document).toObject !== 'function' ? document : (<any>document).toObject();
 
   if (includeObjectId === false) {
     delete object._id;

@@ -10,8 +10,10 @@ export class MovieApplication {
   listDetail = async (req: Request, res: Response): Promise<void> => {
     const { exact, exactOneOf, include, limit, range, skip, sort } = req.body;
 
-    const list = await this.movieService.listDetail({ exact, exactOneOf, include, range, limit, skip, sort });
-    const count = await this.movieService.countDetail({ exact, exactOneOf, include, range });
+    const [list, count] = await Promise.all([
+      this.movieService.listDetail({ exact, exactOneOf, include, range, limit, skip, sort }),
+      this.movieService.countDetail({ exact, exactOneOf, include, range }),
+    ]);
 
     res.json({ total: count, list: list.map((one) => refineData(one)) });
   };
@@ -30,6 +32,6 @@ export class MovieApplication {
 
     const item = await this.movieService.confirmOne({ _id: movieId });
 
-    res.json(refineData(item, { remove: ['password'] }));
+    res.json(refineData(item));
   };
 }
