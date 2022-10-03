@@ -1,0 +1,115 @@
+paths:
+  /movies/list:
+    post:
+      tags:
+        - 영화
+      summary: 영화 목록
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                include:
+                  type: object
+                  description: 포함 검색
+                  required: false
+                exact:
+                  type: object
+                  description: 일치 검색
+                  required: false
+                exactOneOf:
+                  type: array
+                  description: 일치 검색 (배열 중 하나만 일치해도 검색)
+                  required: false
+                  items:
+                    type: object
+                range:
+                  type: object
+                  description: 범위 검색
+                  required: false
+                sort:
+                  type: object
+                  required: false
+                  description: 정렬 asc | desc
+                skip:
+                  type: number
+                  required: false
+                limit:
+                  type: number
+                  required: false
+            example:
+              include:
+                title: 해리포터
+              exact:
+                genres: horror
+                actors: 유재석
+              exactOneOf: [{ title: 반지의 제왕 }, { actors: 유재석 }]
+              range:
+                createdAt: { gte: 2022-01-01, lte: 2022-12-31 }
+              sort:
+                createdAt: desc
+                title: asc
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+
+  /movies:
+    post:
+      tags:
+        - 영화
+      summary: 영화 등록
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  description: 최소 6자
+                actors:
+                  type: array
+                  items:
+                    type: string
+                genres:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Movie'
+
+  /movies/{movieId}:
+    get:
+      tags:
+        - 영화
+      summary: 영화 조회
+      parameters:
+        - in: path
+          name: movieId
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'

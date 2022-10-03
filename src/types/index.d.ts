@@ -20,7 +20,7 @@ declare global {
   type SearchCondition = {
     include?: { [key: string]: any }; // 포함 검색
     exact?: { [key: string]: any }; // 일치 검색
-    exactOneOf?: { [key: string]: any }; // 하나만 일치해도 검색
+    exactOneOf?: { [key: string]: any }[]; // 하나만 일치해도 검색
     sort?: { [key: string]: any }; // 정렬 조건
     range?: { [key: string]: any }; // 범위 검색
     skip?: number;

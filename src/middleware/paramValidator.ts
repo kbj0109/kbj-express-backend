@@ -1,7 +1,9 @@
 import { RequestHandler } from 'express';
 import { validationResult, ValidationChain } from 'express-validator';
 import _ from 'lodash';
+import flat from 'flat';
 import { BadRequestError } from '../constant/error';
+import { Types } from 'mongoose';
 
 /** 유효성 검사 미들웨어 */
 export const validator = (validations: ValidationChain[]): RequestHandler => {
@@ -26,4 +28,17 @@ export const validator = (validations: ValidationChain[]): RequestHandler => {
       validator(tail)(req, res, next);
     });
   };
+};
+
+/** 해당 string 값이, MongoDB의 ObjectId Stirng 값이 맞는지 확인 */
+export const isObjectId = (v: string): boolean => Types.ObjectId.isValid(v);
+
+/** 검색 조건 sort에 해당되는지 확인 */
+export const isSort = (obj: { [key: string]: any }): boolean => {
+  return Object.values(<any>flat(obj)).every((v) => typeof v === 'string' && ['desc', 'asc'].includes(v.toLowerCase()));
+};
+
+/** 검색 조건 Range 에 해당되는지 확인 */
+export const isRange = (obj: { [key: string]: any }): boolean => {
+  return Object.keys(flat(obj)).every((v) => v.endsWith('.gte') || v.endsWith('.lte'));
 };

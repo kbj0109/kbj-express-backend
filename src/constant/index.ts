@@ -26,6 +26,7 @@ export enum Genre {
   Fantasy = 'fantasy',
   Action = 'action',
 }
+export const GenreList = Object.values(Genre).filter((one) => typeof one === 'string');
 
 /** 영화관 */
 export enum Theater {
