@@ -12,7 +12,7 @@ export class ScheduleApplication {
     const { exact, exactOneOf, include, limit, range, skip, sort } = req.body;
 
     const [list, count] = await Promise.all([
-      this.scheduleService.listDetail({ exact, exactOneOf, include, range, limit, skip, sort }),
+      this.scheduleService.listDetailWithMovie({ exact, exactOneOf, include, range, limit, skip, sort }),
       this.scheduleService.countDetail({ exact, exactOneOf, include, range }),
     ]);
 
@@ -34,9 +34,9 @@ export class ScheduleApplication {
   };
 
   readOne = async (req: Request, res: Response): Promise<void> => {
-    const { movieId } = req.params;
+    const { scheduleId } = req.params;
 
-    const item = await this.scheduleService.confirmOne({ _id: movieId });
+    const item = await this.scheduleService.confirmOne({ _id: scheduleId });
 
     res.json(refineData(item));
   };

@@ -52,15 +52,18 @@ paths:
               properties:
                 title:
                   type: string
+                  default: 해리포터 마법사의돌
                 description:
                   type: string
-                  description: 최소 6자
+                  default: 해리포터 시리즈 1편
                 actors:
                   type: array
+                  default: [해리, 론, 헤르미온느]
                   items:
                     type: string
                 genres:
                   type: array
+                  default: [fantasy, comedy, horror]
                   items:
                     type: string
       responses:

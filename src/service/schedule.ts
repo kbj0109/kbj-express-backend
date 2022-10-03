@@ -8,9 +8,12 @@ export class ScheduleService {
   private readonly model = new ScheduleModel();
   private readonly service = new Service(this.model);
 
-  listDetail = this.service.listDetail;
   countDetail = this.service.countDetail;
   confirmOne = this.service.confirmOne;
+
+  listDetailWithMovie = async (condition: SearchCondition): ReturnType<ScheduleModel['listDetailWithMovie']> => {
+    return this.model.listDetailWithMovie(condition);
+  };
 
   createOne = async (
     data: Omit<ISchedule, '_id'>,
@@ -19,12 +22,10 @@ export class ScheduleService {
     // 해당 시간, 같은 영화관에 상영 스케줄이 있는지 확인
     const item = await this.service.readDetail({
       exact: { theater: data.theater },
-      exactOneOf: [
-        {
-          startAt: { gte: data.startAt, lte: data.endAt },
-          endAt: { gte: data.startAt, lte: data.endAt },
-        },
-      ],
+      range: {
+        startAt: { gte: data.startAt, lte: data.endAt },
+        endAt: { gte: data.startAt, lte: data.endAt },
+      },
     });
 
     if (item) {

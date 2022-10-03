@@ -26,8 +26,10 @@ export const scheduleRouter = (scheduleApp: ScheduleApplication): Router => {
     '/',
     validator([
       body('movieId').custom(isObjectId),
-      body('startAt').isDate().toDate(),
-      body('endAt').isDate().toDate(),
+      body('startAt').isISO8601(),
+      body('endAt')
+        .isISO8601()
+        .custom((v, { req }) => v > req.body.startAt),
       body('theater').isIn(TheaterList),
     ]),
     asyncTransactionWrapper(scheduleApp.createOne),
