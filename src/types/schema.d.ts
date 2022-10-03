@@ -33,7 +33,7 @@ interface IMovie {
 
 interface ISchedule {
   _id: string;
-  movie: Types.ObjectId;
+  movie: string | IMovie;
   startAt: Date; // 시작 시간
   endAt: Date; // 종료 시간
   theater: Theater; // 상영 영화관
