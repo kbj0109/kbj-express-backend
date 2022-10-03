@@ -15,3 +15,5 @@ const Schema = new mongoose.Schema<IMovie>(schema);
 Schema.index({ createdAt: 1 });
 
 export const _MovieModel = mongoose.model<IMovie>(DB_Collection.Movie, Schema);
+
+export const moviePropList: (keyof IMovie)[] = Object.keys(schema) as (keyof IMovie)[];

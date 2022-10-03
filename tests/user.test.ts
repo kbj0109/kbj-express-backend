@@ -12,7 +12,7 @@ const sample = getSampleUserData();
 const userService = new UserService();
 
 describe(`User 테스트`, () => {
-  describe('가입 관련 시나리오 테스트', () => {
+  describe('등록 테스트', () => {
     test('[성공] 회원가입', async () => {
       const res = await request.post(API.UserSignup).send(sample);
       expect(res.statusCode).toBe(200);
@@ -63,7 +63,7 @@ describe(`User 테스트`, () => {
     });
   });
 
-  describe('자신 정보 확인 테스트', () => {
+  describe('자신 조회 테스트', () => {
     const username = 'sample-myself';
     let accessToken = 'Bearer ';
 

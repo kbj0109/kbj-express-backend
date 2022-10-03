@@ -66,22 +66,23 @@ export class _Model<T> {
     return this.model.find(getFilterQuery(condition), null, { skip, limit, session: transaction });
   };
 
-  listDetail = async (
-    condition: SearchCondition,
-    option?: { transaction?: ClientSession; skip?: number; limit?: number },
-  ): Promise<T[]> => {
-    const { skip, limit, transaction } = option || {};
-
-    return this.model.find(getSearchQuery(condition), null, { skip, limit, session: transaction });
+  listDetail = async (condition: SearchCondition, option?: { transaction?: ClientSession }): Promise<T[]> => {
+    return this.model.aggregate([...getSearchQuery(condition)]).session(option?.transaction || null);
   };
 
   countDetail = async (condition: CountSearchCondition, option?: { transaction?: ClientSession }): Promise<number> => {
-    return this.model.countDocuments(getSearchQuery(condition)).session(option?.transaction || null);
+    return this.model
+      .aggregate([...getSearchQuery(condition), { $project: { _id: 1 } }])
+      .session(option?.transaction || null)
+      .then((list) => list.length);
   };
 
   readDetail = async (condition: SearchCondition, option?: { transaction?: ClientSession }): Promise<T | null> => {
-    const { transaction } = option || {};
+    const list = await this.model
+      .aggregate(getSearchQuery({ ...condition, limit: 1 }))
+      .session(option?.transaction || null);
 
-    return this.model.findOne(getSearchQuery(condition), null, { session: transaction });
+    if (list[0]) return list[0];
+    return null;
   };
 }

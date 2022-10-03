@@ -2,7 +2,7 @@ import ms from 'ms';
 import { Service } from '.';
 import { config } from '../config';
 import { AuthType } from '../constant';
-import { BadRequestError, ExpiredTokenError, InvalidTokenError } from '../constant/error';
+import { BadRequestError, ExpiredTokenError } from '../constant/error';
 import { AuthCodeModel } from '../model/auth';
 import { IUser } from '../types/schema';
 import { compareEncryptValue, createJwtToken, openJwtToken } from '../util/auth';

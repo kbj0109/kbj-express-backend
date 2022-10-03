@@ -16,7 +16,7 @@ describe(`Auth 테스트`, () => {
       });
   });
 
-  describe('로그인 관련 시나리오 테스트', () => {
+  describe('로그인 테스트', () => {
     test('[성공] 로그인', async () => {
       const res = await request.post(API.AuthSignIn).send({ username: sample.username, password: sample.password });
 
@@ -38,7 +38,7 @@ describe(`Auth 테스트`, () => {
     });
   });
 
-  describe('토큰 갱신 관련 시나리오 테스트', () => {
+  describe('토큰 갱신 테스트', () => {
     test('[성공] 토큰 갱신', async () => {
       const { accessToken, refreshToken } = await request
         .post(API.AuthSignIn)
