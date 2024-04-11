@@ -5,7 +5,7 @@
     "editor.insertSpaces": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true // For ESLint
+    "source.fixAll.eslint": "explicit"
   },
   "prettier.semi": true
 }

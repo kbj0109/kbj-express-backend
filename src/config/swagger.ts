@@ -6,7 +6,7 @@ const option: Options = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'KBJ-TypeScript-Backend',
+      title: 'KBJ-ExpressJs-Backend',
       version: '1.0.0',
       description: `${config.serverEnv} 서버 API 문서`,
     },
